@@ -1,4 +1,0 @@
-.idea
-terraform/.terraform/
-*.tfstate
-*.lock.hcl
