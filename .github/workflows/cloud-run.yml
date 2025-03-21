@@ -2,7 +2,7 @@ name: Cloud Run Build and Deploy
 on: [push]
 
 env:
-  WORKLOAD_IDENTITY_PROVIDER: projects/644621961258/locations/global/workloadIdentityPools/myidentity-pool/providers/myidentity-provider
+  WORKLOAD_IDENTITY_PROVIDER: projects/644621961258/locations/global/workloadIdentityPools/my-identity-pool/providers/my-identity-provider
   SERVICE_ACCOUNT: sa-wif@helloworld-454409.iam.gserviceaccount.com
   PROJECT: helloworld-454409
   REGION: europe-west9

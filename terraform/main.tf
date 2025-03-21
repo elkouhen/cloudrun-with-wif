@@ -25,8 +25,8 @@ resource "google_project_service" "project_api" {
 }
 
 resource "google_iam_workload_identity_pool" "github_pool" {
-  workload_identity_pool_id = "myidentity-pool"
-  display_name              = "myidentity-pool"
+  workload_identity_pool_id = "my-identity-pool"
+  display_name              = "my-identity-pool"
 }
 
 resource "google_service_account" "sa_wif" {
@@ -36,9 +36,9 @@ resource "google_service_account" "sa_wif" {
 
 resource "google_iam_workload_identity_pool_provider" "identity_provider" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.github_pool.workload_identity_pool_id
-  workload_identity_pool_provider_id = "myidentity-provider"
+  workload_identity_pool_provider_id = "my-identity-provider"
 
-  display_name                       = "myidentity-provider"
+  display_name                       = "my-identity-provider"
   attribute_condition                = "attribute.repository==assertion.repository"
 
   attribute_mapping = {
