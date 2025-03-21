@@ -11,6 +11,19 @@ provider "google" {
   project = "helloworld-454409"
 }
 
+locals {
+  project_api_list = [
+    "iam.googleapis.com"
+  ]
+}
+
+resource "google_project_service" "project_api" {
+  for_each                   = toset(local.project_api_list)
+  service                    = each.key
+  disable_dependent_services = false
+  disable_on_destroy         = false
+}
+
 resource "google_iam_workload_identity_pool" "github_pool" {
   workload_identity_pool_id = "myidentity-pool"
   display_name              = "myidentity-pool"
