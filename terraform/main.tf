@@ -7,15 +7,19 @@ terraform {
   }
 }
 
-provider "google" {
-  project = "helloworld-454409"
-}
-
 locals {
   project_api_list = [
     "iam.googleapis.com"
   ]
+
+  project = "helloworld-454409"
 }
+
+provider "google" {
+  project = local.project
+}
+
+
 
 resource "google_project_service" "project_api" {
   for_each                   = toset(local.project_api_list)
@@ -48,4 +52,10 @@ resource "google_iam_workload_identity_pool_provider" "identity_provider" {
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
+}
+
+resource "google_service_account_iam_member" "add_permission_serviceaccounttokencreator_on_sa_tf" {
+  service_account_id = google_service_account.sa_wif.id
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "principalSet://iam.googleapis.com/projects/644621961258/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_pool.workload_identity_pool_id}/attribute.repository/elkouhen/${google_iam_workload_identity_pool_provider.identity_provider.workload_identity_pool_provider_id}"
 }
